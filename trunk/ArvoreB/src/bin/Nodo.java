@@ -38,6 +38,7 @@ public class Nodo {
         } else {
             chaveRetorno = quebraNodo(chave);
         }
+
         return chaveRetorno;
     }
 
@@ -552,9 +553,17 @@ public class Nodo {
          int nivel = 1;*/
         int conta = nodo.getSomaChaves();
         Chave[] chaves = nodo.getChaves();
-        for (int i = 0; i < conta; i++) {
-            imprime += chaves[i].getChave() + " ";
+        imprime += "<";
+        for (int i = 0; i < 4; i++) {
+            imprime += "[";
+            if (chaves[i] != null) {
+                imprime += chaves[i].getChave() + "";
+            } else {
+                imprime += "*";
+            }
+            imprime += "]";
         }
+        imprime += ">";
         imprime += "-[" + (nivel + nivelAnterior) + "]\n";
 
         if (!nodo.ehFolha()) {

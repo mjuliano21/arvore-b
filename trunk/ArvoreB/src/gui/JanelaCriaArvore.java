@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
  * @author Eduardo Ott
  */
 public class JanelaCriaArvore extends javax.swing.JFrame {
-    
+
     public static void insereValor(ArvoreB arvore, int valMax) {
         Random rnd = new Random();
         arvore.insereChave(rnd.nextInt(valMax));
-        
+
     }
-    
+
     public static ArvoreB criaArvore(int ordem, int qtdRegistros, int valMax) {
         ArvoreB tree = new ArvoreB(2);
         for (int i = 0; i < qtdRegistros; i++) {
@@ -30,30 +30,31 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         }
         return tree;
     }
-    
+
     public void gravar(String arvore) {
-        
+
         try {
-            
+            String txt = arvore;
             File arquivo = new File("C:\\teste\\arvore.txt");
-            PrintWriter arqTexto = new PrintWriter(arvore);
-            arqTexto.print(arvore);
-            
+            PrintWriter arqTexto = new PrintWriter(arquivo);
+             System.out.println(txt);
+            arqTexto.print("Alguma coisa");
+
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
-            
+
         } /*catch (IOException IOE) {
          IOException BIOS;
          }*/
-        
+
     }
-    
+
     public void carregar(String caminho) {
-        
+
     }
-    
+
     private ArvoreB arvore;
-    
+
     public JanelaCriaArvore() {
         initComponents();
     }
@@ -272,13 +273,13 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
 
     private void jButton1PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PrintActionPerformed
         jTextAreaPrint.setText(arvore.imprimeChave());
+
     }//GEN-LAST:event_jButton1PrintActionPerformed
 
     private void jButton1SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SaveActionPerformed
-        
-        gravar(arvore.imprimeChave()
-        );
-        
+        String save = arvore.imprimeChave();
+        gravar(save);
+
 
     }//GEN-LAST:event_jButton1SaveActionPerformed
 
