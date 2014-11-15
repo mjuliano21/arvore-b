@@ -32,13 +32,13 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }
 
     public void gravar(String arvore) {
-
+// por algum motivo não está gravando
         try {
             String txt = arvore;
             File arquivo = new File("C:\\teste\\arvore.txt");
             PrintWriter arqTexto = new PrintWriter(arquivo);
-             System.out.println(txt);
-            arqTexto.print("Alguma coisa");
+            arqTexto.print(txt);
+            arqTexto.close();
 
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
@@ -51,6 +51,8 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
 
     public void carregar(String caminho) {
 
+        
+        
     }
 
     private ArvoreB arvore;
@@ -277,7 +279,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1PrintActionPerformed
 
     private void jButton1SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SaveActionPerformed
-        String save = arvore.imprimeChave();
+        String save = arvore.imprimeChaveGravacao();
         gravar(save);
 
 
