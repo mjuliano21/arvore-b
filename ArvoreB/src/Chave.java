@@ -31,20 +31,9 @@ public class Chave {
 		return proximo;
 	}
 	
-	public int getKey() {
+	public int getChave() {
 		return chave;
 	}
 
-	public boolean hasSpeareKey() {
-		Chave speareKey = getAnterior().getBiggerKeySpare();
-		if (speareKey == null)
-			speareKey = getProximo().getSmallerKeySpare();
-		else
-			return true;
-		
-		if (speareKey == null)
-			return false;
-		else
-			return true;
-	}
+	
 }
