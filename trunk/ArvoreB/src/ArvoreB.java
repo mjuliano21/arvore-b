@@ -1,103 +1,93 @@
 public class ArvoreB {
-	private Nodo nod;
-	private int ordem;
+    // atributos
+    private Nodo nod;
+    private int ordem;
 
-	public ArvoreB(int order) {
-		this.ordem = order;
-		this.nod = new Nodo(this.ordem);
-	}
+    // construtor
+    public ArvoreB(int ordem) {
+        this.ordem = ordem;
+        this.nod = new Nodo(this.ordem);
+    }
+    // inserir chave
+    private Chave insereChave(Chave novaChave, Nodo nodo) {
+        Chave chaveRetorno = null;
 
-	public void insertKey(int key) {
-		Chave newKey = new Chave(key);
-		newKey = insertKey(newKey, nod);
-		if (newKey != null) {
-			Nodo newNode = new Nodo(ordem);
-			newNode.insereChave(newKey);
-			nod = newNode;
-		}
-	}
+        if (nodo.ehFolha()) {
+            /*
+             Se for uma Folha, apenas insere nela
+             */
+            chaveRetorno = nodo.insereChave(novaChave);
+        } else {
+            /*
+             * Caso não for ele procura a folha recursivamente
+             */
+            Chave[] chaves = nodo.getChaves();
+            int contaChaves = nodo.getSomaChaves();
+            for (int i = 0; i < contaChaves; i++) {
+                if (novaChave.getChave() < chaves[i].getChave()) {
+                    chaveRetorno = insereChave(novaChave, chaves[i].getAnterior());
+                    break;
+                } else if (i == contaChaves - 1) {
+                    chaveRetorno = insereChave(novaChave, chaves[i].getProximo());
+                    break;
+                }
+            }
 
-	private Chave insertKey(Chave newKey, Nodo nodo) {
-		Chave keyReturned = null;
+            if (chaveRetorno != null) {
+                chaveRetorno = nodo.insereChave(chaveRetorno);
+            }
+        }
 
-		if (nodo.isLeaf()) {
-			/*
-			 * Se � uma Folha ele apenas insere nela
-			 */
-			keyReturned = nodo.insereChave(newKey);
-		} else {
-			/*
-			 * Caso n�o for ele procura a folha pela recursividade.
-			 */
-			Chave[] keys = nodo.getKeys();
-			int countKeys = nodo.getCountKeys();
-			for (int i = 0; i < countKeys; i++) {
-				if (newKey.getKey() < keys[i].getKey()) {
-					keyReturned = insertKey(newKey, keys[i].getAnterior());
-					break;
-				} else if (i == countKeys - 1) {
-					keyReturned = insertKey(newKey, keys[i].getProximo());
-					break;
-				}
-			}
+        return chaveRetorno;
+    }
+    // insere chave
+    public void insereChave(int chave) {
+        Chave novaChave = new Chave(chave);
+        novaChave = insereChave(novaChave, nod);
+        if (novaChave != null) {
+            Nodo novoNodo = new Nodo(ordem);
+            novoNodo.insereChave(novaChave);
+            nod = novoNodo;
+        }
+    }
+ // busca chave
+    public boolean buscaChave(int value) {
+        return nod.buscaChave(new Chave(value), nod);
+    }
+ // remove chave
+    public void removeChave(int key) {
+        nod.removeKeyHard(new Chave(key));
+    }
 
-			if (keyReturned != null)
-				keyReturned = nodo.insereChave(keyReturned);
-		}
+    public String imprimeChave() {
+        String retorno = "";
 
-		return keyReturned;
-	}
+        String[] nodosComNivel = nod.imprimeNodo(nod, 0).split("\n");
+        int nivelMax = 0;
+        String[][] niveis = new String[10][100];
+        int[] contaNiveis = new int[10];
+        for (int i = 0; i < nodosComNivel.length; i++) {
+            String[] divisao = nodosComNivel[i].split("-");
+            int nivel = Integer.parseInt("" + divisao[divisao.length - 1].charAt(1)) - 1;
+            niveis[nivel][contaNiveis[nivel]++] = divisao[0];
+            if (nivel > nivelMax) {
+                nivelMax = nivel;
+            }
+        }
 
-	public boolean searchKey(int value) {
-		return nod.searchKey(new Chave(value), nod);
-	}
+        String tabInicial = "";
+        for (int i = 0; i <= nivelMax; i++) {
+            tabInicial += "";
+            retorno += "\n";
+            for (int j = 0; j < contaNiveis[i]; j++) {
+                retorno += tabInicial + niveis[i][j] + "\t\t";
+            }
+        }
 
-	public void removeKey(int key) {
-		/*ArvoreB tree = potato.removeKeyEasy(new Chave(key));	
-		if (tree != null) {
-			this.potato = tree.potato;
-		}*/
-		nod.removeKeyHard(new Chave(key));
-	}
+        nod.nivel = 1;
+        nod.imprime = "";
+        return retorno;
+    }
 
-	/*private void removeKey(Chave key, Nodo node) {
-		node.removeKeyHard(key);
-	}*/
-
-	public String printBTree() {
-		String retorno = "";
-
-		String[] nodesWithLevel = nod.printNode(nod, 0).split("\n");
-		int maxLevel = 0;
-		String[][] levels = new String[10][100];
-		int[] countlevels = new int[10];
-		for (int i = 0; i < nodesWithLevel.length; i++) {
-			String[] division = nodesWithLevel[i].split("-");
-			int level = Integer.parseInt("" + division[division.length - 1].charAt(1)) - 1;
-			levels[level][countlevels[level]++] = division[0];
-			if (level > maxLevel)
-				maxLevel = level;
-		}
-
-		String tabInicial = "";
-		for (int i = 0; i <= maxLevel; i++) {
-			tabInicial += "";
-			retorno += "\n";
-			for (int j = 0; j < countlevels[i]; j++) {
-				retorno += tabInicial + levels[i][j] + "\t\t";
-			}
-		}
-
-		nod.nivel = 1;
-		nod.print = "";
-		return retorno;
-	}
-
-	private String multiNivel(int nivel) {
-		String retorno = "";
-		for (int i = 0; i <= nivel; i++) {
-			retorno += "\t\t";
-		}
-		return retorno;
-	}
+   
 }

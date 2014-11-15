@@ -2,31 +2,42 @@
 public class Main {
 
 	public static void main(String[] args) {
-		ArvoreB tree = new ArvoreB(1);
-		tree.insertKey(99);
-		tree.insertKey(75);
-		tree.insertKey(63);
-		tree.insertKey(50);
-		tree.insertKey(30);
-		tree.insertKey(25);
-		tree.insertKey(22);
-		tree.insertKey(20);
-		tree.insertKey(19);
-		tree.insertKey(1);
-		tree.insertKey(7);
-		tree.insertKey(8);
-		tree.insertKey(12);
-		tree.insertKey(15);
-		tree.insertKey(18);
-		tree.insertKey(17);
-		tree.insertKey(21);
-		tree.insertKey(80);
-		tree.insertKey(64);
-		tree.insertKey(65);
-		System.out.println(tree.printBTree());
+		ArvoreB tree = new ArvoreB(2);
+                
+		/*tree.insereChave(99);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(75);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(63);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(50);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(30);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(25);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(22);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(20);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(19);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(1);
+                System.out.println(tree.imprimeChave());
+		tree.insereChave(7);
+		tree.insereChave(8);
+		tree.insereChave(12);
+		tree.insereChave(15);
+		tree.insereChave(18);
+		tree.insereChave(17);
+		tree.insereChave(21);
+		tree.insereChave(80);
+		tree.insereChave(64);
+		tree.insereChave(65);
+		System.out.println(tree.imprimeChave());*/
 		
-		tree.removeKey(7);
-		System.out.println(tree.printBTree());
+		tree.removeChave(7);
+		System.out.println(tree.imprimeChave());
 	}
 
 }
