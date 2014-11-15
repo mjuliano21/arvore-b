@@ -17,7 +17,7 @@ public class Nodo {
 		return keys;
 	}
 
-	public boolean isLeaf() {
+	public boolean ehFolha() {
 		return keys[0] == null || keys[0].getAnterior() == null;
 	}
 
@@ -31,7 +31,7 @@ public class Nodo {
 		Chave keyReturn = null;
 		if (countKeys < keys.length) {
 			keys[countKeys] = key;
-			if (isLeaf()) {
+			if (ehFolha()) {
 				keys = orderKey(keys, countKeys);
 			} else {
 				Chave[] tempKey = organizeReferencesKeys(keys, countKeys, key);
@@ -48,7 +48,7 @@ public class Nodo {
 		if (node.getIndexKey(node.keys, key, node.getCountKeys()) != -1)
 			return true;
 
-		if (node.isLeaf())
+		if (node.ehFolha())
 			return false;
 		else {
 			for (int i = 0; i < node.countKeys; i++) {
@@ -64,7 +64,7 @@ public class Nodo {
 
 	private int getIndexKey(Chave[] keys, Chave key, int count) {
 		for (int i = 0; i < count; i++) {
-			if (keys[i].getKey() == key.getKey())
+			if (keys[i].getChave() == key.getChave())
 				return i;
 		}
 		return -1;
@@ -82,7 +82,7 @@ public class Nodo {
 		}
 
 		tempKeys[newLength - 1] = key;
-		if (isLeaf()) {
+		if (ehFolha()) {
 			tempKeys = orderKey(tempKeys, newLength - 1);
 		} else {
 			tempKeys = organizeReferencesKeys(tempKeys, newLength - 1, key);
@@ -131,7 +131,7 @@ public class Nodo {
 
 	private Chave[] orderKey(Chave[] keys, int count) {
 		for (int i = count; i > 0; i--) {
-			if (keys[i].getKey() < keys[i - 1].getKey()) {
+			if (keys[i].getChave() < keys[i - 1].getChave()) {
 				Chave temp = keys[i - 1];
 				keys[i - 1] = keys[i];
 				keys[i] = temp;
@@ -160,13 +160,13 @@ public class Nodo {
 		boolean found = false;
 		int i = 0;
 		for (; i < countKeys; i++) {
-			if (keys[i].getKey() == key.getKey())
+			if (keys[i].getChave() == key.getChave())
 				found = true;
-			if (keys[i].getKey() > key.getKey() || found)
+			if (keys[i].getChave() > key.getChave() || found)
 				break;
 		}
 
-		if (isLeaf()) {
+		if (ehFolha()) {
 			if (found) {
 				if (countKeys > 1) {
 					int j = i;
@@ -192,7 +192,7 @@ public class Nodo {
 					bigger = keys[i].getProximo();
 					smaller = keys[i].getAnterior();
 				}
-				if (bigger.isLeaf()) {
+				if (bigger.ehFolha()) {
 					if (bigger.getCountKeys() > 1) {
 						Chave smallerKey = new Chave(bigger.getSmallerKey());
 						bigger.removeKeyHard(smallerKey);
@@ -263,7 +263,7 @@ public class Nodo {
 						if (i == countKeys)
 							right = true;
 					} else {
-						right = keys[0].getKey() < key.getKey();
+						right = keys[0].getChave() < key.getChave();
 					}
 
 					Chave referenceKey = null; // Apenas para facilitar quando acessar o pai da removida(ou n�o);
@@ -281,7 +281,7 @@ public class Nodo {
 							int countKeysBrother = brother.getCountKeys();
 							if (countKeysBrother > 1) {
 								// Remove essa chave sobressalente do irm�o.
-								int keyNewFather = brother.getKeys()[brother.getCountKeys() - 1].getKey();
+								int keyNewFather = brother.getKeys()[brother.getCountKeys() - 1].getChave();
 								Chave newFather = new Chave(keyNewFather);
 								brother.removeKeyHard(newFather);
 
@@ -310,11 +310,11 @@ public class Nodo {
 						} else {
 							Nodo brother = referenceKey.getProximo();
 							Chave spareKey = brother.getSmallerKeySpare();
-							/*if (brother.isLeaf()) {
+							/*if (brother.ehFolha()) {
 								int countKeysBrother = brother.getCountKeys();
 								if (countKeysBrother > 1) {
 									// Remove essa chave sobressalente do irm�o.
-									int keyNewFather = brother.getKeys()[0].getKey();
+									int keyNewFather = brother.getKeys()[0].getChave();
 									Chave newFather = new Chave(keyNewFather);
 									brother.removeKeyHard(newFather);
 
@@ -333,7 +333,7 @@ public class Nodo {
 										keys[i - 1].setProximo(newNode);
 								} else {
 									// Pai antigo vira filho pra equilibrar a �rvore.
-									int father = keys[i].getKey();
+									int father = keys[i].getChave();
 									int j = i;
 									for (; j < countKeys - 1; j++) {
 										keys[j] = keys[j + 1];
@@ -377,47 +377,47 @@ public class Nodo {
 		boolean achou = false;
 		int i = 0;
 		for (; i < countKeys; i++) {
-			if (keys[i].getKey() == key.getKey())
+			if (keys[i].getChave() == key.getChave())
 				achou = true;
-			if (keys[i].getKey() > key.getKey())
+			if (keys[i].getChave() > key.getChave())
 				break;
 		}
 
 		if (achou) {
 			for (int j = 0; j < numberKeys; j++) {
-				if (keysReturned[j] != key.getKey())
-					newTree.insertKey(keysReturned[j]);
+				if (keysReturned[j] != key.getChave())
+					newTree.insereChave(keysReturned[j]);
 			}
 		} else {
 			if (i == countKeys) {
 				achou = keys[i - 1].getProximo().searchKey(key, keys[i - 1].getProximo());
 				if (achou) {
-					for (int j = 0; j < numberKeys && keysReturned[j] != key.getKey(); j++) {
-						newTree.insertKey(keysReturned[j]);
+					for (int j = 0; j < numberKeys && keysReturned[j] != key.getChave(); j++) {
+						newTree.insereChave(keysReturned[j]);
 					}
-					for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getKey(); j--) {
-						newTree.insertKey(keysReturned[j]);
+					for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getChave(); j--) {
+						newTree.insereChave(keysReturned[j]);
 					}
 				}
 			} else {
 				achou = keys[i].getAnterior().searchKey(key, keys[i].getAnterior());
 				if (achou) {
 					if (i == 0) {
-						for (int j = 0; j < numberKeys && keysReturned[j] != key.getKey(); j++) {
-							newTree.insertKey(keysReturned[j]);
+						for (int j = 0; j < numberKeys && keysReturned[j] != key.getChave(); j++) {
+							newTree.insereChave(keysReturned[j]);
 						}
-						for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getKey(); j--) {
-							newTree.insertKey(keysReturned[j]);
+						for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getChave(); j--) {
+							newTree.insereChave(keysReturned[j]);
 						}
 					} else {
-						Nodo nodeWithKey = getNode(key.getKey());
+						Nodo nodeWithKey = getNode(key.getChave());
 						int biggerKey = nodeWithKey.getBiggerKey();
 						for (int j = numberKeys - 1; j > 0 && keysReturned[j] != biggerKey; j--) {
-							newTree.insertKey(keysReturned[j]);
+							newTree.insereChave(keysReturned[j]);
 						}
 						for (int j = 0; j < numberKeys; j++) {
-							if (keysReturned[j] != key.getKey())
-								newTree.insertKey(keysReturned[j]);
+							if (keysReturned[j] != key.getChave())
+								newTree.insereChave(keysReturned[j]);
 							if (keysReturned[j] == biggerKey)
 								break;
 						}
@@ -435,7 +435,7 @@ public class Nodo {
 
 	private Nodo getNode(int keyValue) {
 		for (int i = 0; i < countKeys; i++) {
-			if (keys[i].getKey() == keyValue)
+			if (keys[i].getChave() == keyValue)
 				return this;
 		}
 
@@ -455,7 +455,7 @@ public class Nodo {
 				returnKey += node.getAllKeys(node.keys[i].getAnterior()) + " ";
 			}
 
-			returnKey += node.keys[i].getKey() + " ";
+			returnKey += node.keys[i].getChave() + " ";
 			if (i == node.countKeys - 1) {
 				if (node.keys[i].getProximo() != null) {
 					returnKey += node.getAllKeys(node.keys[i].getProximo()) + " ";
@@ -470,22 +470,22 @@ public class Nodo {
 	}
 
 	public int getSmallerKey() {
-		if (isLeaf())
-			return keys[0].getKey();
+		if (ehFolha())
+			return keys[0].getChave();
 		else
 			return keys[0].getAnterior().getSmallerKey();
 	}
 
 	public int getBiggerKey() {
-		if (isLeaf())
-			return keys[countKeys - 1].getKey();
+		if (ehFolha())
+			return keys[countKeys - 1].getChave();
 		else
 			return keys[countKeys - 1].getProximo().getBiggerKey();
 	}
 
 	public Chave getSmallerKeySpare() {
 		Chave returned = null;
-		if (isLeaf()) {
+		if (ehFolha()) {
 			if (countKeys > 1)
 				return keys[0];
 			else
@@ -500,7 +500,7 @@ public class Nodo {
 
 	public Chave getBiggerKeySpare() {
 		Chave returned = null;
-		if (isLeaf()) {
+		if (ehFolha()) {
 			if (countKeys > 1)
 				return keys[countKeys - 1];
 			else
@@ -523,11 +523,11 @@ public class Nodo {
             int count = node.getCountKeys();
 		Chave[] keys = node.getKeys();
 		for (int i = 0; i < count; i++) {
-			print += keys[i].getKey() + " ";
+			print += keys[i].getChave() + " ";
 		}
 		print += "-[" + (nivel + nivelAnterior) + "]\n";
 
-		if (!node.isLeaf()) {
+		if (!node.ehFolha()) {
 			for (int i = 0; i < node.countKeys; i++) {
 				printNode(node.keys[i].getAnterior(), nivel + nivelAnterior);
 				if (i == node.countKeys - 1)
