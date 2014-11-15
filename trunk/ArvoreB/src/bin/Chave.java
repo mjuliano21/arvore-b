@@ -1,3 +1,5 @@
+package bin;
+
 public class Chave {
 	private int chave;
 	private Nodo anterior;

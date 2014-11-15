@@ -1,3 +1,5 @@
+package bin;
+
 public class Nodo {
 
     private int somaChaves;

@@ -1,3 +1,5 @@
+package bin;
+
 public class ArvoreB {
     // atributos
     private Nodo nod;
