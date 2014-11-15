@@ -53,7 +53,10 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         jButton2Insere = new javax.swing.JButton();
         jButton3Remove = new javax.swing.JButton();
         jButton1Print = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaPrint = new javax.swing.JTextArea();
+        jButton1Save = new javax.swing.JButton();
+        jButton2Load = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -108,13 +111,24 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("jLabel7");
+        jTextAreaPrint.setColumns(20);
+        jTextAreaPrint.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaPrint);
+
+        jButton1Save.setText("Salvar");
+        jButton1Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1SaveActionPerformed(evt);
+            }
+        });
+
+        jButton2Load.setText("Carregar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -131,34 +145,38 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                                     .addComponent(jTextField2QtdInicial)
                                     .addComponent(jTextField1Ordem)))
                             .addComponent(jLabel4))
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
+                                    .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextField4Chave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(26, 26, 26)
                                         .addComponent(jButton2Insere)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3Remove))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jButton3Remove)))))
+                        .addGap(0, 30, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jButton1Criar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(252, 252, 252)
-                        .addComponent(jLabel7)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1Criar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1Save)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2Load)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -179,13 +197,16 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jTextField3ValMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jButton1Criar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1Criar)
+                    .addComponent(jButton1Save)
+                    .addComponent(jButton2Load))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(jLabel7)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,7 +221,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ChaveActionPerformed
 
     private void jButton2InsereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2InsereActionPerformed
-        // TODO add your handling code here:
+        arvore.insereChave(Integer.parseInt(jTextField4Chave.getText()));
     }//GEN-LAST:event_jButton2InsereActionPerformed
 
     private void jButton1CriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CriarActionPerformed
@@ -211,8 +232,12 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1CriarActionPerformed
 
     private void jButton1PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PrintActionPerformed
-        jLabel7.setText(arvore.imprimeChave());
+        jTextAreaPrint.setText(arvore.imprimeChave());
     }//GEN-LAST:event_jButton1PrintActionPerformed
+
+    private void jButton1SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1SaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,7 +277,9 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1Criar;
     private javax.swing.JButton jButton1Print;
+    private javax.swing.JButton jButton1Save;
     private javax.swing.JButton jButton2Insere;
+    private javax.swing.JButton jButton2Load;
     private javax.swing.JButton jButton3Remove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -260,8 +287,9 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextAreaPrint;
     private javax.swing.JTextField jTextField1Ordem;
     private javax.swing.JTextField jTextField2QtdInicial;
     private javax.swing.JTextField jTextField3ValMax;
