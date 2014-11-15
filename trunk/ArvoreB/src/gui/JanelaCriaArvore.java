@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -50,9 +51,19 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }
 
     public void carregar(String caminho) {
+        try {
+            File arquivo = new File(caminho);
+            Scanner scan = new Scanner(arquivo);
+            for (int i = 0; scan.hasNextByte(); i++) {
+                //if (scan.)
+                arvore.insereChave(scan.nextInt());
+                scan.nextInt();
+            }
 
-        
-        
+        } catch (FileNotFoundException zueira) {
+            FileNotFoundException zueira2;
+
+        }
     }
 
     private ArvoreB arvore;
