@@ -90,6 +90,36 @@ public class ArvoreB {
         nod.imprime = "";
         return retorno;
     }
+    
+    public String imprimeChaveGravacao() {
+        String retorno = "";
+
+        String[] nodosComNivel = nod.imprimeNodo(nod, 0).split("\n");
+        int nivelMax = 0;
+        String[][] niveis = new String[10][100];
+        int[] contaNiveis = new int[10];
+        for (int i = 0; i < nodosComNivel.length; i++) {
+            String[] divisao = nodosComNivel[i].split("-");
+            int nivel = Integer.parseInt("" + divisao[divisao.length - 1].charAt(1)) - 1;
+            niveis[nivel][contaNiveis[nivel]++] = divisao[0];
+            if (nivel > nivelMax) {
+                nivelMax = nivel;
+            }
+        }
+
+        String tabInicial = "";
+        for (int i = 0; i <= nivelMax; i++) {
+            tabInicial += "";
+
+            for (int j = 0; j < contaNiveis[i]; j++) {
+                retorno += tabInicial + niveis[i][j];
+            }
+        }
+
+        nod.nivel = 1;
+        nod.imprime = "";
+        return retorno;
+    }
 
    
 }
