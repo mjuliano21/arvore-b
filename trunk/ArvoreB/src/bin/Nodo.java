@@ -145,7 +145,7 @@ public class Nodo {
     }
 
     /**
-     * Retorna true se a �rvore perdeu um n�vel e ficar� desbalanceada.
+     * Retorna true se a arvore perdeu um n�vel e ficar� desbalanceada.
      *
      * N�O FUNCIONA AINDA
      */
@@ -508,7 +508,6 @@ public class Nodo {
         }
     }
 
-    // favor entender o que isso faz
     public Chave getSmallerKeySpare() {
         Chave returned = null;
         if (ehFolha()) {
@@ -525,32 +524,12 @@ public class Nodo {
         }
         return returned;
     }
-// favor entender o que isso faz
 
-    public Chave getBiggerKeySpare() {
-        Chave returned = null;
-        if (ehFolha()) {
-            if (somaChaves > 1) {
-                return chaves[somaChaves - 1];
-            } else {
-                return null;
-            }
-        } else {
-            returned = chaves[somaChaves - 1].getProximo().getBiggerKeySpare();
-            if (returned == null) {
-                returned = chaves[somaChaves - 1].getAnterior().getBiggerKeySpare();
-            }
-        }
-        return returned;
-    }
-
-    /* GAMBIARRA - ARRUMAR URGENTE  -- guarda a info se é pai ou não*/
     public static int nivel = 1;
     public static String imprime = "";
 
     public String imprimeNodo(Nodo nodo, int nivelAnterior) {
-        /*String imprime = "";
-         int nivel = 1;*/
+ 
         int conta = nodo.getSomaChaves();
         Chave[] chaves = nodo.getChaves();
         for (int i = 0; i < 4; i++) {
