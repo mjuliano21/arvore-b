@@ -20,7 +20,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     public JanelaCriaArvore() {
         initComponents();
     }
-    
+
     public static void insereValor(ArvoreB arvore, int valMax) {
         Random rnd = new Random();
         arvore.insereChave(rnd.nextInt(valMax));
@@ -37,12 +37,12 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     public void gravar(String arvore) {
 // por algum motivo não está gravando
         try {
-        String txt = arvore;
+            String txt = arvore;
             File arquivo = new File("C:\\teste\\arvore.txt");
             PrintWriter arqTexto = new PrintWriter(arquivo);
-            arqTexto.print(ordem+","+txt);
+            arqTexto.print(ordem + "," + txt);
             arqTexto.close();
-            
+
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
         }
@@ -56,15 +56,15 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
             File arquivo = new File(caminho);
             Scanner scan = new Scanner(arquivo);
             while (scan.hasNext()) {
-            String texto = scan.next();
-            String[] valores = texto.split(",");
-            ArvoreB arvore = new ArvoreB(Integer.parseInt(valores[0]));
+                String texto = scan.next();
+                String[] valores = texto.split(",");
+                ArvoreB arvore = new ArvoreB(Integer.parseInt(valores[0]));
                 for (int j = 1; j < valores.length; j++) {
                     if (!valores[j].equals("*")) {
                         arvore.insereChave(Integer.parseInt(valores[j]));
                     }
                 }
-            this.arvore = arvore;
+                this.arvore = arvore;
             }
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
@@ -101,6 +101,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         jTextAreaPrint = new javax.swing.JTextArea();
         jButton1Save = new javax.swing.JButton();
         jButton2Load = new javax.swing.JButton();
+        jButton1Busca = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -178,6 +179,13 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
             }
         });
 
+        jButton1Busca.setText("Buscar");
+        jButton1Busca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1BuscaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,14 +223,16 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                                                 .addGap(26, 26, 26)
                                                 .addComponent(jButton2Insere)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jButton3Remove))))))
+                                                .addComponent(jButton3Remove)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton1Busca))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1Criar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1Save)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2Load)))
-                        .addGap(0, 129, Short.MAX_VALUE)))
+                        .addGap(0, 58, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,7 +243,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -256,8 +266,9 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField4Chave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2Insere)
-                            .addComponent(jButton3Remove))
-                        .addGap(32, 32, 32)
+                            .addComponent(jButton3Remove)
+                            .addComponent(jButton1Busca))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,9 +324,17 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2LoadActionPerformed
 
     private void jButton3RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3RemoveActionPerformed
-arvore.removeChave(Integer.parseInt(jTextField4Chave.getText()));
+        arvore.removeChave(Integer.parseInt(jTextField4Chave.getText()));
         jTextField4Chave.setText(null);
         jTextAreaPrint.setText(arvore.imprimeChave());    }//GEN-LAST:event_jButton3RemoveActionPerformed
+
+    private void jButton1BuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BuscaActionPerformed
+        if (arvore.buscaChave(Integer.parseInt(jTextField4Chave.getText()))) {
+            jTextAreaPrint.setText("A chave " + jTextField4Chave.getText() + " existe!");
+        } else {
+            jTextAreaPrint.setText("A chave " + jTextField4Chave.getText() + " não existe!");
+        }
+    }//GEN-LAST:event_jButton1BuscaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +372,7 @@ arvore.removeChave(Integer.parseInt(jTextField4Chave.getText()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1Busca;
     private javax.swing.JButton jButton1Criar;
     private javax.swing.JButton jButton1Print;
     private javax.swing.JButton jButton1Save;
