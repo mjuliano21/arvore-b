@@ -34,52 +34,57 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="527" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextField3ValMax" pref="54" max="32767" attributes="0"/>
-                                  <Component id="jTextField2QtdInicial" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField1Ordem" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton1Print" min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextField4Chave" min="-2" pref="43" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="jButton2Insere" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jButton3Remove" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextField3ValMax" pref="54" max="32767" attributes="0"/>
+                                          <Component id="jTextField2QtdInicial" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextField1Ordem" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jButton1Print" min="-2" pref="166" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jTextField4Chave" min="-2" pref="43" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jButton2Insere" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jButton3Remove" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jButton1Criar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButton1Save" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButton2Load" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1Criar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1Save" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton2Load" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="129" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -129,8 +134,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="240" max="-2" attributes="0"/>
-              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="291" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -208,6 +213,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Remover"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3RemoveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1Print">
       <Properties>

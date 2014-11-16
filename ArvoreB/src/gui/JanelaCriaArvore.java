@@ -147,6 +147,11 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         });
 
         jButton3Remove.setText("Remover");
+        jButton3Remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3RemoveActionPerformed(evt);
+            }
+        });
 
         jButton1Print.setText("IMPRIMIR ÀRVORE");
         jButton1Print.addActionListener(new java.awt.event.ActionListener() {
@@ -181,41 +186,44 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField3ValMax, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                                    .addComponent(jTextField2QtdInicial)
-                                    .addComponent(jTextField1Ordem)))
-                            .addComponent(jLabel4))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField4Chave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jButton2Insere)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3Remove))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1Criar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1Save)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2Load)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField3ValMax, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                            .addComponent(jTextField2QtdInicial)
+                                            .addComponent(jTextField1Ordem)))
+                                    .addComponent(jLabel4))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton1Print, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextField4Chave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(26, 26, 26)
+                                                .addComponent(jButton2Insere)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jButton3Remove))))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1Criar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1Save)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2Load)))
+                        .addGap(0, 129, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,8 +262,8 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -272,6 +280,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     private void jButton2InsereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2InsereActionPerformed
         arvore.insereChave(Integer.parseInt(jTextField4Chave.getText()));
         jTextField4Chave.setText(null);
+        jTextAreaPrint.setText(arvore.imprimeChave());
     }//GEN-LAST:event_jButton2InsereActionPerformed
 
     private void jButton1CriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CriarActionPerformed
@@ -302,6 +311,11 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         carregar();
 
     }//GEN-LAST:event_jButton2LoadActionPerformed
+
+    private void jButton3RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3RemoveActionPerformed
+arvore.removeChave(Integer.parseInt(jTextField4Chave.getText()));
+        jTextField4Chave.setText(null);
+        jTextAreaPrint.setText(arvore.imprimeChave());    }//GEN-LAST:event_jButton3RemoveActionPerformed
 
     /**
      * @param args the command line arguments
