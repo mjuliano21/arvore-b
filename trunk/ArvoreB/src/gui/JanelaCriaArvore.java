@@ -2,26 +2,28 @@ package gui;
 
 import bin.ArvoreB;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /*
  * @author Eduardo Ott
  */
 public class JanelaCriaArvore extends javax.swing.JFrame {
 
+    private ArvoreB arvore;
+    String ordem;
+
+    public JanelaCriaArvore() {
+        initComponents();
+    }
+    
     public static void insereValor(ArvoreB arvore, int valMax) {
         Random rnd = new Random();
         arvore.insereChave(rnd.nextInt(valMax));
-
     }
 
     public static ArvoreB criaArvore(int ordem, int qtdRegistros, int valMax) {
@@ -35,41 +37,39 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     public void gravar(String arvore) {
 // por algum motivo não está gravando
         try {
-            String txt = arvore;
+        String txt = arvore;
             File arquivo = new File("C:\\teste\\arvore.txt");
             PrintWriter arqTexto = new PrintWriter(arquivo);
-            arqTexto.print(txt);
+            arqTexto.print(ordem+","+txt);
             arqTexto.close();
-
+            
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
-
-        } /*catch (IOException IOE) {
-         IOException BIOS;
-         }*/
-
+        }
     }
 
-    public void carregar(String caminho) {
+    public void carregar() {
         try {
+            JFileChooser fc = new JFileChooser("C:\\teste");
+            fc.showOpenDialog(this);
+            String caminho = fc.getSelectedFile().getAbsolutePath();
             File arquivo = new File(caminho);
             Scanner scan = new Scanner(arquivo);
-            for (int i = 0; scan.hasNextByte(); i++) {
-                //if (scan.)
-                arvore.insereChave(scan.nextInt());
-                scan.nextInt();
+            while (scan.hasNext()) {
+            String texto = scan.next();
+            String[] valores = texto.split(",");
+            ArvoreB arvore = new ArvoreB(Integer.parseInt(valores[0]));
+                for (int j = 1; j < valores.length; j++) {
+                    if (!valores[j].equals("*")) {
+                        arvore.insereChave(Integer.parseInt(valores[j]));
+                    }
+                }
+            this.arvore = arvore;
             }
-
         } catch (FileNotFoundException zueira) {
             FileNotFoundException zueira2;
 
         }
-    }
-
-    private ArvoreB arvore;
-
-    public JanelaCriaArvore() {
-        initComponents();
     }
 
     /**
@@ -279,6 +279,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
                 = criaArvore(Integer.parseInt(jTextField1Ordem.getText()),
                         Integer.parseInt(jTextField2QtdInicial.getText()),
                         Integer.parseInt(jTextField3ValMax.getText()));
+        ordem = jTextField1Ordem.getText();
         jTextField1Ordem.setText(null);
         jTextField2QtdInicial.setText(null);
         jTextField3ValMax.setText(null);
@@ -286,6 +287,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
 
     private void jButton1PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PrintActionPerformed
         jTextAreaPrint.setText(arvore.imprimeChave());
+        jTextAreaPrint.setCaretPosition(0);
 
     }//GEN-LAST:event_jButton1PrintActionPerformed
 
@@ -297,8 +299,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1SaveActionPerformed
 
     private void jButton2LoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2LoadActionPerformed
-        JFileChooser choose = new JFileChooser();
-        choose.setVisible(true);
+        carregar();
 
     }//GEN-LAST:event_jButton2LoadActionPerformed
 
