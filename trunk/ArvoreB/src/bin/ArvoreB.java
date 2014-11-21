@@ -56,10 +56,7 @@ public class ArvoreB {
     public boolean buscaChave(int value) {
         return nod.buscaChave(new Chave(value), nod);
     }
- // remove chave
-    public void removeChave(int key) {
-        nod.removeKeyHard(new Chave(key));
-    }
+ 
 
     public String imprimeChave() {
         String retorno = "";
