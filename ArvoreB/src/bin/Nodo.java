@@ -38,7 +38,6 @@ public class Nodo {
         } else {
             chaveRetorno = quebraNodo(chave);
         }
-
         return chaveRetorno;
     }
 
@@ -46,7 +45,6 @@ public class Nodo {
         if (node.buscaIndiceChave(node.chaves, chave, node.getSomaChaves()) != -1) {
             return true;
         }
-
         if (node.ehFolha()) {
             return false;
         } else {
@@ -59,7 +57,6 @@ public class Nodo {
                 }
             }
         }
-
         return false;
     }
 
@@ -78,7 +75,8 @@ public class Nodo {
             // achar a posicao para inserir
             int posKey = buscaIndiceChave(tempChaves, chave, conta + 1);
 
-            // matar a referencia velha da folha que subiu e substituir a copia da referencia atual dessa folha para a referencia velha dela mesma
+            // matar a referencia velha da folha que subiu e substituir a copia da
+            //referencia atual dessa folha para a referencia velha dela mesma
             if (posKey == 0) {
                 tempChaves[1].setAnterior(chave.getProximo());
             } else if (posKey == conta) {
@@ -110,7 +108,6 @@ public class Nodo {
         for (int i = 0; i < tempChaves.length - 1; i++) {
             tempChaves[i] = chaves[i];
         }
-
         tempChaves[novoComprimento - 1] = chave;
         if (ehFolha()) {
             tempChaves = ordemChave(tempChaves, novoComprimento - 1);
@@ -142,316 +139,6 @@ public class Nodo {
             }
         }
         return chaves;
-    }
-
-    /**
-     * Retorna true se a arvore perdeu um n�vel e ficar� desbalanceada.
-     *
-     * N�O FUNCIONA AINDA
-     */
-    /* FODEU entender esses dois, ainda nem funcionam mesmo, vamos ter que implementar*/
-    public boolean removeKeyHard(Chave key) {
-        /**
-         * EXPLICA��O
-         *
-         * (Sempre no contexto da chave atual) Se a chave estiver numa folha com
-         * mais de uma chave � s� retirar do nodo, por�m de o nodo tiver apenas
-         * aquela chave tem juntar a chave irm�o com a pai e fazer a pai da pai
-         * se juntar com o irm�o do pai. Ap�s isso tem que equivaler o level da
-         * �rvore juntando o irm�o do "av�"(pai do pai) com o irm�o deles mesmo.
-         * Tem que fazer recursivamente. Pode-se fazer isso fazendo a conta de
-         * nivel da arvore se o nivel estiver com -1 � s� puxar o lado direto e
-         * se estiver 1 tem que puxar o lado esquerdo.
-         *
-         * Nivel da �rvore = nivel_filho_esquerdo - nivel_filho_direito
-         */
-        boolean found = false;
-        int i = 0;
-        for (; i < somaChaves; i++) {
-            if (chaves[i].getChave() == key.getChave()) {
-                found = true;
-            }
-            if (chaves[i].getChave() > key.getChave() || found) {
-                break;
-            }
-        }
-
-        if (ehFolha()) {
-            if (found) {
-                if (somaChaves > 1) {
-                    int j = i;
-                    for (; j < somaChaves - 1; j++) {
-                        chaves[j] = chaves[j + 1];
-                    }
-                    chaves[j] = null;
-                    somaChaves--;
-                } else {
-                    chaves[0] = null;
-                    somaChaves--;
-                    return true;
-                }
-            }
-        } else {
-            if (found) {
-                Nodo bigger = null;
-                Nodo smaller = null;
-                if (i == somaChaves) {
-                    bigger = chaves[i - 1].getProximo();
-                    smaller = chaves[i - 1].getAnterior();
-                } else {
-                    bigger = chaves[i].getProximo();
-                    smaller = chaves[i].getAnterior();
-                }
-                if (bigger.ehFolha()) {
-                    if (bigger.getSomaChaves() > 1) {
-                        Chave smallerKey = new Chave(bigger.getMenorChave());
-                        bigger.removeKeyHard(smallerKey);
-                        if (i == somaChaves) {
-                            smallerKey.setProximo(chaves[i - 1].getProximo());
-                            smallerKey.setAnterior(chaves[i - 1].getAnterior());
-                            chaves[i - 1] = smallerKey;
-                        } else {
-                            smallerKey.setProximo(chaves[i].getProximo());
-                            smallerKey.setAnterior(chaves[i].getAnterior());
-                            chaves[i] = smallerKey;
-                        }
-                    } else if (smaller.getSomaChaves() > 1) {
-                        Chave biggerKey = new Chave(smaller.getMaiorChave());
-                        smaller.removeKeyHard(biggerKey);
-                        if (i == somaChaves) {
-                            biggerKey.setProximo(chaves[i - 1].getProximo());
-                            biggerKey.setAnterior(chaves[i - 1].getAnterior());
-                            chaves[i - 1] = biggerKey;
-                        } else {
-                            biggerKey.setProximo(chaves[i].getProximo());
-                            biggerKey.setAnterior(chaves[i].getAnterior());
-                            chaves[i] = biggerKey;
-                        }
-                    } else {
-                        if (somaChaves == 1) {
-                            chaves[0] = smaller.getChaves()[0];
-                            chaves[1] = bigger.getChaves()[0];
-                            somaChaves++;
-                            return true;
-                        } else {
-                            if (i == somaChaves - 1) {
-                                Nodo leftOver = chaves[i].getProximo();
-                                chaves[i] = null;
-                                somaChaves--;
-                                for (Chave leftOverKeys : leftOver.getChaves()) {
-                                    this.insereChave(leftOverKeys);
-                                }
-                            } else if (i == 0) {
-                                Nodo leftOver = chaves[i].getAnterior();
-                                chaves[0] = null;
-                                somaChaves--;
-                                for (Chave leftOverKeys : leftOver.getChaves()) {
-                                    this.insereChave(leftOverKeys);
-                                }
-                            } else {
-                                Nodo leftOver = chaves[i].getProximo();
-
-                                for (int j = i; j < somaChaves - 1; j++) {
-                                    chaves[j] = chaves[j - 1];
-                                }
-                                chaves[somaChaves] = null;
-                                somaChaves--;
-                                chaves[i].setAnterior(chaves[i - 1].getProximo());
-
-                                for (Chave leftOverKeys : leftOver.getChaves()) {
-                                    this.insereChave(leftOverKeys);
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    boolean unbalanced = false;
-
-                    // Verifica de que lado do nodo que ficaria/fica a chave
-                    boolean right = false;
-                    if (somaChaves > 1) {
-                        if (i == somaChaves) {
-                            right = true;
-                        }
-                    } else {
-                        right = chaves[0].getChave() < key.getChave();
-                    }
-
-                    Chave referenceKey = null; // Apenas para facilitar quando acessar o pai da removida(ou n�o);
-                    if (right) {
-                        referenceKey = chaves[i - 1];
-                        unbalanced = referenceKey.getProximo().removeKeyHard(key);
-                    } else {
-                        referenceKey = chaves[i];
-                        unbalanced = referenceKey.getAnterior().removeKeyHard(key);
-                    }
-
-                    if (unbalanced) {
-                        if (right) {
-                            Nodo brother = referenceKey.getAnterior();
-                            int countKeysBrother = brother.getSomaChaves();
-                            if (countKeysBrother > 1) {
-                                // Remove essa chave sobressalente do irm�o.
-                                int keyNewFather = brother.getChaves()[brother.getSomaChaves() - 1].getChave();
-                                Chave newFather = new Chave(keyNewFather);
-                                brother.removeKeyHard(newFather);
-
-                                // Copia as referencias do pai Antigo.
-                                Chave oldFather = chaves[i];
-                                newFather.setAnterior(oldFather.getAnterior());
-                                chaves[i] = newFather;
-
-                                // Pai antigo vira filho pra equilibrar a �rvore
-                                Nodo newNode = new Nodo(chaves.length / 2);
-                                newNode.insereChave(oldFather);
-                                chaves[i].setProximo(newNode);
-                            } else {
-                                if (somaChaves > 1) {
-                                    Chave fatherKey = chaves[i - 1];
-                                    chaves[i - 1] = null;
-                                    somaChaves--;
-                                    insereChave(fatherKey);
-                                } else {
-                                    Chave keyBrother = brother.chaves[0];
-                                    removeKeyHard(keyBrother);
-                                    chaves[somaChaves] = keyBrother;
-                                    chaves[i - 1].setProximo(keyBrother.getAnterior());
-                                }
-                            }
-                        } else {
-                            Nodo brother = referenceKey.getProximo();
-                            Chave spareKey = brother.getSmallerKeySpare();
-                            /*if (brother.ehFolha()) {
-                             int countKeysBrother = brother.getSomaChaves();
-                             if (countKeysBrother > 1) {
-                             // Remove essa chave sobressalente do irm�o.
-                             int keyNewFather = brother.getChaves()[0].getChave();
-                             Chave newFather = new Chave(keyNewFather);
-                             brother.removeKeyHard(newFather);
-
-                             // Copia as referencias do pai Antigo.
-                             Chave oldFather = chaves[i];
-                             newFather.setProximo(oldFather.getProximo());
-                             oldFather.setProximo(null);
-                             oldFather.setAnterior(null);
-                             chaves[i] = newFather;
-
-                             // Pai antigo vira filho pra equilibrar a �rvore.
-                             Nodo newNode = new Nodo(chaves.length / 2);
-                             newNode.insereChave(oldFather);
-                             chaves[i].setAnterior(newNode);
-                             if (i > 0)
-                             chaves[i - 1].setProximo(newNode);
-                             } else {
-                             // Pai antigo vira filho pra equilibrar a �rvore.
-                             int father = chaves[i].getChave();
-                             int j = i;
-                             for (; j < somaChaves - 1; j++) {
-                             chaves[j] = chaves[j + 1];
-                             }
-                             chaves[j] = null;
-                             somaChaves--;
-                             brother.insereChave(new Chave(father));
-                             }
-                             } else {
-
-                             }*/
-                        }
-                    }
-
-                }
-            }
-        }
-        return false;
-    }
-
-    public ArvoreB removeKeyEasy(Chave key) {
-        /**
-         * EXPLICA��O
-         *
-         * Se a remo��o for feita do lado direito da �rvore ter� que inserir
-         * todos os valores menores que a chave removida em ordem crescente e os
-         * maiores em ordem decrescente. Se a remo��o for feita do lado esquerdo
-         * da �rvore tem que inserir todos os valores maiores que a chave
-         * removida em ordem decrescente e os menores em ordem crescente. Se a
-         * remo��o for feita do meio da �rvore tem que inserir todos os valores
-         * maiores que a chave removida em ordem decrescente e os menores em
-         * ordem crescente.
-         */
-
-        ArvoreB newTree = new ArvoreB(chaves.length / 2);
-        String[] returned = getTodasChave(this).split(" ");
-        int[] keysReturned = new int[returned.length];
-        int numberKeys = 0;
-        for (int i = 0; i < returned.length; i++) {
-            if (!returned[i].isEmpty()) {
-                keysReturned[numberKeys] = Integer.parseInt(returned[i]);
-                numberKeys++;
-            }
-        }
-
-        boolean achou = false;
-        int i = 0;
-        for (; i < somaChaves; i++) {
-            if (chaves[i].getChave() == key.getChave()) {
-                achou = true;
-            }
-            if (chaves[i].getChave() > key.getChave()) {
-                break;
-            }
-        }
-
-        if (achou) {
-            for (int j = 0; j < numberKeys; j++) {
-                if (keysReturned[j] != key.getChave()) {
-                    newTree.insereChave(keysReturned[j]);
-                }
-            }
-        } else {
-            if (i == somaChaves) {
-                achou = chaves[i - 1].getProximo().buscaChave(key, chaves[i - 1].getProximo());
-                if (achou) {
-                    for (int j = 0; j < numberKeys && keysReturned[j] != key.getChave(); j++) {
-                        newTree.insereChave(keysReturned[j]);
-                    }
-                    for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getChave(); j--) {
-                        newTree.insereChave(keysReturned[j]);
-                    }
-                }
-            } else {
-                achou = chaves[i].getAnterior().buscaChave(key, chaves[i].getAnterior());
-                if (achou) {
-                    if (i == 0) {
-                        for (int j = 0; j < numberKeys && keysReturned[j] != key.getChave(); j++) {
-                            newTree.insereChave(keysReturned[j]);
-                        }
-                        for (int j = numberKeys - 1; j > 0 && keysReturned[j] != key.getChave(); j--) {
-                            newTree.insereChave(keysReturned[j]);
-                        }
-                    } else {
-                        Nodo nodeWithKey = getNodo(key.getChave());
-                        int biggerKey = nodeWithKey.getMaiorChave();
-                        for (int j = numberKeys - 1; j > 0 && keysReturned[j] != biggerKey; j--) {
-                            newTree.insereChave(keysReturned[j]);
-                        }
-                        for (int j = 0; j < numberKeys; j++) {
-                            if (keysReturned[j] != key.getChave()) {
-                                newTree.insereChave(keysReturned[j]);
-                            }
-                            if (keysReturned[j] == biggerKey) {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (achou) {
-            return newTree;
-        } else {
-            return null;
-        }
     }
 
     private Nodo getNodo(int valorChave) {
@@ -508,28 +195,11 @@ public class Nodo {
         }
     }
 
-    public Chave getSmallerKeySpare() {
-        Chave returned = null;
-        if (ehFolha()) {
-            if (somaChaves > 1) {
-                return chaves[0];
-            } else {
-                return null;
-            }
-        } else {
-            returned = chaves[0].getAnterior().getSmallerKeySpare();
-            if (returned == null) {
-                returned = chaves[0].getProximo().getSmallerKeySpare();
-            }
-        }
-        return returned;
-    }
-
     public static int nivel = 1;
     public static String imprime = "";
 
     public String imprimeNodo(Nodo nodo, int nivelAnterior) {
- 
+
         int conta = nodo.getSomaChaves();
         Chave[] chaves = nodo.getChaves();
         for (int i = 0; i < 4; i++) {

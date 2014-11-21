@@ -324,7 +324,6 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2LoadActionPerformed
 
     private void jButton3RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3RemoveActionPerformed
-        arvore.removeChave(Integer.parseInt(jTextField4Chave.getText()));
         jTextField4Chave.setText(null);
         jTextAreaPrint.setText(arvore.imprimeChave());    }//GEN-LAST:event_jButton3RemoveActionPerformed
 
