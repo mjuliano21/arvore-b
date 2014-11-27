@@ -3,11 +3,13 @@ package gui;
 import bin.ArvoreB;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 
 /*
  * @author Eduardo Ott
@@ -35,16 +37,21 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
     }
 
     public void gravar(String arvore) {
-// por algum motivo não está gravando
+        PrintWriter arqTexto = null;
         try {
             String txt = arvore;
             File arquivo = new File("C:\\teste\\arvore.txt");
-            PrintWriter arqTexto = new PrintWriter(arquivo);
+            if (!(new File("C:\\teste")).exists()){
+                (new File("C:\\teste")).mkdirs();
+            }
+            arqTexto = new PrintWriter(arquivo);
             arqTexto.print(ordem + "," + txt);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JanelaCriaArvore.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JanelaCriaArvore.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             arqTexto.close();
-
-        } catch (FileNotFoundException zueira) {
-            FileNotFoundException zueira2;
         }
     }
 
@@ -292,6 +299,7 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         arvore.insereChave(Integer.parseInt(jTextField4Chave.getText()));
         jTextField4Chave.setText(null);
         jTextAreaPrint.setText(arvore.imprimeChave());
+        salvar();
     }//GEN-LAST:event_jButton2InsereActionPerformed
 
     private void jButton1CriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1CriarActionPerformed
@@ -303,29 +311,28 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         jTextField1Ordem.setText(null);
         jTextField2QtdInicial.setText(null);
         jTextField3ValMax.setText(null);
+        salvar();
     }//GEN-LAST:event_jButton1CriarActionPerformed
 
     private void jButton1PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1PrintActionPerformed
         jTextAreaPrint.setText(arvore.imprimeChave());
         jTextAreaPrint.setCaretPosition(0);
-
+        salvar();
     }//GEN-LAST:event_jButton1PrintActionPerformed
 
-    private void jButton1SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SaveActionPerformed
+    public void salvar() {
         String save = arvore.imprimeChaveGravacao();
         gravar(save);
-
-
+    }
+    
+    private void jButton1SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SaveActionPerformed
+        salvar();
     }//GEN-LAST:event_jButton1SaveActionPerformed
 
     private void jButton2LoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2LoadActionPerformed
         carregar();
-
+        salvar();
     }//GEN-LAST:event_jButton2LoadActionPerformed
-
-    private void jButton3RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3RemoveActionPerformed
-        jTextField4Chave.setText(null);
-        jTextAreaPrint.setText(arvore.imprimeChave());    }//GEN-LAST:event_jButton3RemoveActionPerformed
 
     private void jButton1BuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1BuscaActionPerformed
         if (arvore.buscaChave(Integer.parseInt(jTextField4Chave.getText()))) {
@@ -333,7 +340,14 @@ public class JanelaCriaArvore extends javax.swing.JFrame {
         } else {
             jTextAreaPrint.setText("A chave " + jTextField4Chave.getText() + " não existe!");
         }
+        salvar();
     }//GEN-LAST:event_jButton1BuscaActionPerformed
+
+    private void jButton3RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3RemoveActionPerformed
+        jTextField4Chave.setText(null);
+        jTextAreaPrint.setText(arvore.imprimeChave()); 
+        salvar();
+    }//GEN-LAST:event_jButton3RemoveActionPerformed
 
     /**
      * @param args the command line arguments
