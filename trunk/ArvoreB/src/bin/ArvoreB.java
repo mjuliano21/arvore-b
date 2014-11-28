@@ -63,7 +63,7 @@ public class ArvoreB {
 
         String[] nodosComNivel = nod.imprimeNodo(nod, 0).split("\n");
         int nivelMax = 0;
-        String[][] niveis = new String[10][100];
+        String[][] niveis = new String[1000][10000];
         int[] contaNiveis = new int[10];
         for (int i = 0; i < nodosComNivel.length; i++) {
             String[] divisao = nodosComNivel[i].split("-");
@@ -93,7 +93,7 @@ public class ArvoreB {
 
         String[] nodosComNivel = nod.imprimeNodo(nod, 0).split("\n");
         int nivelMax = 0;
-        String[][] niveis = new String[10][100];
+        String[][] niveis = new String[1000][10000];
         int[] contaNiveis = new int[10];
         for (int i = 0; i < nodosComNivel.length; i++) {
             String[] divisao = nodosComNivel[i].split("-");
